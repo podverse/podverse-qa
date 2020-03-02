@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "test:stage": "NODE_ENV=stage jest"
+  },
+  "devDependencies": {
+    "chalk": "^2.4.2",
+    "dotenv": "^8.2.0",
+    "jest": "^24.8.0",
+    "prettier": "^1.18.2",
+    "puppeteer": "^1.17.0",
+    "rimraf": "^2.6.3"
+  }
+}
