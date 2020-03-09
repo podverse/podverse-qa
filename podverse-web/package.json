@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "test:stage": "NODE_ENV=stage jest"
+    "test:stage": "NODE_ENV=stage jest",
+    "test:prod": "NODE_ENV=prod jest"
   },
   "devDependencies": {
     "chalk": "^2.4.2",
