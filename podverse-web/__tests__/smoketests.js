@@ -1,9 +1,4 @@
-const expect = require('expect-puppeteer')
-
 const { getTestOrigin } = require('../utility')
-
-const timeout = 12000
-
 const origin = getTestOrigin()
 
 describe(
@@ -20,18 +15,13 @@ describe(
 
         it('should load homepage without error', async () => {
             await page.goto(origin)
-            await page.waitForSelector('.footer-top__brand', {
-                visible: true
-            })
-        }, 10000)
+            await page.waitForSelector('.footer-top__brand', { visible: true })
+        })
 
         it('should load about page when about footer link is pressed', async () => {
             await page.click('.footer-bottom__link[href="/about"]')
-            await page.waitForSelector('h3', {
-                visible: true,
-                text: "About"
-            })
-        }, 10000)
+            await page.waitForXPath("//h3[contains(text(), 'About')]")
+        })
     },
-    timeout
+    20000
 )
