@@ -1,8 +1,8 @@
-console.log('NODE_ENV', process.env.NODE_ENV)
-console.log('WEB_HOST', process.env.WEB_HOST)
-console.log('env vars', process.env)
+console.log('puppeteer env NODE_ENV', process.env.NODE_ENV)
+console.log('puppeteer env WEB_HOST', process.env.WEB_HOST)
 
 if (process.env.NODE_ENV !== 'stage') {
+  console.log('.env loading')
   require('dotenv').config({ path: '.env' })
 }
 
