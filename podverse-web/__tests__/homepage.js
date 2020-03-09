@@ -3,7 +3,7 @@ const timeout = 5000
 let webOrigin = ''
 
 if (process.env.NODE_ENV === 'stage') {
-  webOrigin = `https://${process.env_WEB_HOST}`
+  webOrigin = `https://${process.env.WEB_HOST}`
 } else {
   webOrigin = `http://${process.env.WEB_HOST}:${process.env.WEB_PORT}`
 }
