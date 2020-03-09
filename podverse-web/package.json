@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "test:stage": "NODE_ENV=stage WEB_HOST=stage.podverse.fm jest"
+    "test:stage": "NODE_ENV=stage jest"
   },
   "devDependencies": {
     "chalk": "^2.4.2",
