@@ -1,4 +1,4 @@
-const timeout = 5000
+const timeout = 20000
 
 let webOrigin = ''
 
