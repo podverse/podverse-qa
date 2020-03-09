@@ -1,3 +1,7 @@
+console.log('NODE_ENV', process.env.NODE_ENV)
+console.log('WEB_HOST', process.env.WEB_HOST)
+console.log('env vars', process.env)
+
 if (process.env.NODE_ENV !== 'stage') {
   require('dotenv').config({ path: '.env' })
 }
