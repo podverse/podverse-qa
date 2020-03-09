@@ -1,4 +1,4 @@
-const timeout = 20000
+const timeout = 120000
 
 let webOrigin = ''
 
@@ -21,12 +21,12 @@ describe(
 
     afterAll(async () => {
       await page.close()
-    })
+    }, timeout)
 
     it('should load without error', async () => {
       let text = await page.evaluate(() => document.body.textContent)
       expect(text).toContain('Podverse')
-    })
+    }, timeout)
   },
   timeout
 )
