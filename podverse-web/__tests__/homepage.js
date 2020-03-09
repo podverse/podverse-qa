@@ -8,6 +8,8 @@ if (process.env.NODE_ENV === 'stage') {
   webOrigin = `http://${process.env.WEB_HOST}:${process.env.WEB_PORT}`
 }
 
+console.log('web origin', webOrigin)
+
 describe(
   '/ (Home Page)',
   () => {
