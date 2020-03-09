@@ -1,32 +1,26 @@
-const timeout = 120000
+// const { getTestOrigin } = require('../utility')
 
-let webOrigin = ''
+// const timeout = 120000
 
-if (process.env.NODE_ENV === 'stage') {
-  webOrigin = `https://${process.env.WEB_HOST}`
-} else {
-  webOrigin = `http://${process.env.WEB_HOST}:${process.env.WEB_PORT}`
-}
+// const origin = getTestOrigin()
 
-console.log('web origin', webOrigin)
+// describe(
+//   '/ (Home Page)',
+//   () => {
+//     let page
+//     beforeAll(async () => {
+//       page = await global.__BROWSER__.newPage()
+//       await page.goto(origin)
+//     }, timeout)
 
-describe(
-  '/ (Home Page)',
-  () => {
-    let page
-    beforeAll(async () => {
-      page = await global.__BROWSER__.newPage()
-      await page.goto(webOrigin)
-    }, timeout)
+//     afterAll(async () => {
+//       await page.close()
+//     }, timeout)
 
-    afterAll(async () => {
-      await page.close()
-    }, timeout)
-
-    it('should load without error', async () => {
-      let text = await page.evaluate(() => document.body.textContent)
-      expect(text).toContain('Podverse')
-    }, timeout)
-  },
-  timeout
-)
+//     it('should load without error', async () => {
+//       let text = await page.evaluate(() => document.body.textContent)
+//       expect(text).toContain('Podverse')
+//     }, timeout)
+//   },
+//   timeout
+// )

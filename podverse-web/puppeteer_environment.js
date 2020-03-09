@@ -1,11 +1,6 @@
 console.log('puppeteer env NODE_ENV', process.env.NODE_ENV)
 console.log('puppeteer env WEB_HOST', process.env.WEB_HOST)
 
-if (process.env.NODE_ENV !== 'stage') {
-  console.log('.env loading')
-  require('dotenv').config({ path: '.env' })
-}
-
 const chalk = require('chalk')
 const NodeEnvironment = require('jest-environment-node')
 const puppeteer = require('puppeteer')

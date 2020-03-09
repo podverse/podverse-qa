@@ -2,12 +2,12 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "test:stage": "NODE_ENV=stage jest",
-    "test:prod": "NODE_ENV=prod jest"
+    "test:stage": "NODE_ENV=stage jest"
   },
   "devDependencies": {
     "chalk": "^2.4.2",
     "dotenv": "^8.2.0",
+    "expect-puppeteer": "^4.4.0",
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
     "puppeteer": "^1.17.0",
