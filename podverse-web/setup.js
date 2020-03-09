@@ -14,7 +14,8 @@ module.exports = async function() {
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   }
-  console.log(chalk.green(launchSettings))
+
+  console.log(JSON.stringify(launchSettings))
 
   const browser = await puppeteer.launch(launchSettings)
   // This global is not available inside tests but only in global teardown
