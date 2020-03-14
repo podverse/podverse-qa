@@ -11,6 +11,7 @@ describe(
 
         afterAll(async () => {
             await page.close()
+            await page.waitFor(1000)
         })
 
         it('should load homepage without error', async () => {
