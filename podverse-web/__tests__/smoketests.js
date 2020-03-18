@@ -6,8 +6,8 @@ describe(
     () => {
         let page
         beforeAll(async () => {
-            page = await global.__BROWSER__.newPage()
-            await page.goto(origin)
+            const context = await global.__BROWSER__.createIncognitoBrowserContext()
+            page = await context.newPage()
         })
 
         afterAll(async () => {
@@ -20,8 +20,9 @@ describe(
             () => {
 
                 it.only('should load homepage without error', async () => {
+                    await page.goto(origin)
                     await page.waitForXPath("//a[contains(text(), 'Podverse')]")
-                }, 10000)
+                }, 25000)
 
                 it.only('should load About page when About footer link is pressed', async () => {
                     await page.click('.footer-bottom__link[href="/about"]')
@@ -73,7 +74,7 @@ describe(
                     await page.click('.dropdown-item[href="/settings"]')
                     await page.waitForXPath("//h3[contains(text(), 'Interface')]")
                 }, 10000)
-            }, 20000)
+            }, 30000)
     },
     20000
 )

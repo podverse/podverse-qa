@@ -13,7 +13,7 @@ module.exports = async function () {
   const launchSettings = {
     headless: false,
     slowMo: 40,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--incognito']
   }
 
   console.log(JSON.stringify(launchSettings))
