@@ -8,7 +8,8 @@ describe(
     () => {
         let page
         beforeAll(async () => {
-            page = await global.__BROWSER__.newPage()
+            const context = await global.__BROWSER__.createIncognitoBrowserContext()
+            page = await context.newPage()
         })
 
         afterAll(async () => {
