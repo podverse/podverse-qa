@@ -1,4 +1,4 @@
-import expectPuppeteer from 'expect-puppeteer'
+// import expectPuppeteer from 'expect-puppeteer'
 
 const { getTestOrigin } = require('../utility')
 const origin = getTestOrigin()
@@ -21,7 +21,7 @@ describe(
             '/ (Pages)',
             () => {
 
-                it.only('Load Homepage', async () => {
+                it('Load Homepage', async () => {
                     await page.goto(origin)
                     await page.waitForXPath("//a[contains(text(), 'Podverse')]")
                 }, 35000)
@@ -42,9 +42,15 @@ describe(
                 }, 10000)
 
                 it('Search Page: magnifying glass link', async () => {
-                    await page.click('.nav-link[href="/search"]')
+                    const elements = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][@href="/search"]')
+                    await elements[0].click();
                     await page.waitForXPath("//h3[contains(text(), 'Search')]")
+                    await page.focus('.search__input')
+                    await page.keyboard.type('Very Bad Wizards')
+                    await page.click('.search__input-btn')
+                    await page.waitFor(5000)
                 }, 10000)
+
 
                 it('Podcasts Page: header link', async () => {
                     await page.click('.nav-link[href="/podcasts"]')
@@ -78,23 +84,19 @@ describe(
             '/ (Modals)',
             () => {
 
-                it.only('Login Modal: hidden header content SHOULD FAIL', async () => {
-                    await page.waitForXPath("//h3[contains(text(), 'Login')]")
-                })
-
-                it.only('Login Modal: header link', async () => {
+                it('Login Modal: header link', async () => {
                     const elements = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]')
                     await elements[0].click();
                     await page.waitForXPath("//h3[contains(text(), 'Login')]")
                 })
 
-                it.only('Sign Up Modal: login modal link', async () => {
+                it('Sign Up Modal: login modal link', async () => {
                     await page.click('.login-modal__sign-up')
                     await page.waitForXPath("//h3[contains(text(), 'Sign Up')]")
                     await page.click('.close-btn')
                 })
 
-                it.only('Forgot? Modal: login modal link', async () => {
+                it('Forgot? Modal: login modal link', async () => {
                     const elements = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]')
                     await elements[0].click();
                     await page.click('.login-modal__forgot')
@@ -102,9 +104,28 @@ describe(
                     await page.click('.close-btn')
                 })
 
-                it.only('Queue Modal: login modal link', async () => {
+                it('Queue Modal: media bar link', async () => {
                     await page.click('.mp-header__queue')
                     await page.waitForXPath("//h3[contains(text(), 'Queue')]")
+                    await page.click('.close-btn')
+                })
+
+
+                it('Clip Modal: media bar link', async () => {
+                    await page.click('.mp-header__clip')
+                    await page.waitForXPath("//h3[contains(text(), 'Make Clip')]")
+                    await page.click('.make-clip-modal__cancel')
+                })
+
+                it('Add To Modal: media bar link', async () => {
+                    await page.click('.mp-header__add')
+                    await page.waitForXPath("//h3[contains(text(), 'Add To')]")
+                    await page.click('.close-btn')
+                })
+
+                it('Share Modal: media bar link', async () => {
+                    await page.click('.mp-header__share')
+                    await page.waitForXPath("//h3[contains(text(), 'Share')]")
                     await page.click('.close-btn')
                 })
 
