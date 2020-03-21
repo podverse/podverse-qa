@@ -12,7 +12,7 @@ module.exports = async function () {
 
   const launchSettings = {
     headless: false,
-    slowMo: 40,
+    slowMo: 200,
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--incognito']
   }
 
