@@ -1,4 +1,4 @@
-import expectPuppeteer from 'expect-puppeteer'
+// import expectPuppeteer from 'expect-puppeteer'
 
 const { getTestOrigin } = require('../utility')
 const origin = getTestOrigin()
@@ -8,8 +8,7 @@ describe(
     () => {
         let page
         beforeAll(async () => {
-            const context = await global.__BROWSER__.createIncognitoBrowserContext()
-            page = await context.newPage()
+            page = await global.__BROWSER__.newPage()
         })
 
         afterAll(async () => {
@@ -21,7 +20,7 @@ describe(
             '/ (Pages)',
             () => {
 
-                it.only('Load Homepage', async () => {
+                it('Load Homepage', async () => {
                     await page.goto(origin)
                     await page.waitForXPath("//a[contains(text(), 'Podverse')]")
                 }, 35000)
@@ -42,19 +41,25 @@ describe(
                 }, 10000)
 
                 it('Search Page: magnifying glass link', async () => {
-                    await page.click('.nav-link[href="/search"]')
+                    const elements = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][@href="/search"]')
+                    await elements[0].click();
                     await page.waitForXPath("//h3[contains(text(), 'Search')]")
+                    await page.focus('.search__input')
+                    await page.keyboard.type('Very Bad Wizards')
+                    await page.click('.search__input-btn')
+                    await page.waitFor(5000)
                 }, 10000)
+
 
                 it('Podcasts Page: header link', async () => {
                     await page.click('.nav-link[href="/podcasts"]')
                     await page.waitForXPath("//h3[contains(text(), 'Podcasts')]")
                 }, 10000)
 
-                it('Playlist Page: header link', async () => {
-                    await page.click('.nav-link[href="/playlists"]')
-                    await page.waitForXPath("//div[contains(text(), 'Login to view your playlists')]")
-                }, 10000)
+                // it('Playlist Page: header link', async () => {
+                //     await page.click('.nav-link[href="/playlists"]')
+                //     await page.waitForXPath("//div[contains(text(), 'Login to view your playlists')]")
+                // }, 10000)
 
                 it('Settings Page: dropdown ► settings link', async () => {
                     await page.click('.dropdown-toggle')
@@ -67,10 +72,96 @@ describe(
             '/ (Dropdowns)',
             () => {
 
-                it('should load homepage without error', async () => {
+                it('Load Homepage', async () => {
                     await page.goto(origin)
                     await page.waitForXPath("//a[contains(text(), 'Podverse')]")
                 }, 35000)
+
+                it('Homepage Dropdowns: Clips ► Episodes', async () => {
+                    const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Clips")]')
+                    await elements1[0].click();
+                    const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "Episodes")]')
+                    await elements2[0].click();
+                    await page.waitForXPath('//div[@class="no-results-msg"]')
+                })
+
+                it('Homepage Dropdowns: Episodes ► Clips', async () => {
+                    const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Episodes")]')
+                    await elements1[0].click();
+                    const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "Clips")]')
+                    await elements2[0].click();
+                    await page.waitForXPath("//div[contains(text(), 'Amet aliquam id diam maecenas ultricies mi eget')]")
+                })
+
+                it('Homepage Drop Downs: All podcasts ► Subscribed', async () => {
+                    const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "All podcasts")]')
+                    await elements1[0].click();
+                    const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "Subscribed")]')
+                    await expect(elements2[0]).toBeTruthy()
+                })
+
+                describe(
+                    '/ (Podcast Sorting Dropdowns)',
+                    () => {
+
+                        it('Sorting Dropdowns: Sort ► Most Recent', async () => {
+                            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past week")]')
+                            await elements1[0].click();
+                            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "most recent")]')
+                            await elements2[0].click();
+                            await page.waitForXPath("//button[contains(text(), 'most recent')]")
+                        })
+
+                        it('Sorting Dropdowns: Sort ► Top Past Day', async () => {
+                            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "most recent")]')
+                            await elements1[0].click();
+                            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past day")]')
+                            await elements2[0].click();
+                            await page.waitForXPath("//button[contains(text(), 'top - past day')]")
+                        })
+
+                        it('Sorting Dropdowns: Sort ► Top Past Month', async () => {
+                            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past day")]')
+                            await elements1[0].click();
+                            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past month")]')
+                            await elements2[0].click();
+                            await page.waitForXPath("//button[contains(text(), 'top - past month')]")
+                        })
+
+                        it('Sorting Dropdowns: Sort ► Top Past Year', async () => {
+                            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past month")]')
+                            await elements1[0].click();
+                            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past year")]')
+                            await elements2[0].click();
+                            await page.waitForXPath("//button[contains(text(), 'top - past year')]")
+                        })
+
+                        it('Sorting Dropdowns: Sort ► Top All Time', async () => {
+                            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past year")]')
+                            await elements1[0].click();
+                            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - all time")]')
+                            await elements2[0].click();
+                            await page.waitForXPath("//button[contains(text(), 'top - all time')]")
+                        })
+
+                        it('Sorting Dropdowns: Sort ► Random', async () => {
+                            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - all time")]')
+                            await elements1[0].click();
+                            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "random")]')
+                            await elements2[0].click();
+                            await page.waitForXPath("//button[contains(text(), 'random')]")
+                        })
+
+                        it('Sorting Dropdowns: Sort ► Top Past Week', async () => {
+                            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "random")]')
+                            await elements1[0].click();
+                            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past week")]')
+                            await elements2[0].click();
+                            await page.waitForXPath("//button[contains(text(), 'top - past week')]")
+                        })
+
+
+                    })
 
             }, 60000)
 
@@ -78,23 +169,19 @@ describe(
             '/ (Modals)',
             () => {
 
-                it.only('Login Modal: hidden header content SHOULD FAIL', async () => {
-                    await page.waitForXPath("//h3[contains(text(), 'Login')]")
-                })
-
-                it.only('Login Modal: header link', async () => {
+                it('Login Modal: header link', async () => {
                     const elements = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]')
                     await elements[0].click();
                     await page.waitForXPath("//h3[contains(text(), 'Login')]")
                 })
 
-                it.only('Sign Up Modal: login modal link', async () => {
+                it('Sign Up Modal: login modal link', async () => {
                     await page.click('.login-modal__sign-up')
                     await page.waitForXPath("//h3[contains(text(), 'Sign Up')]")
                     await page.click('.close-btn')
                 })
 
-                it.only('Forgot? Modal: login modal link', async () => {
+                it('Forgot? Modal: login modal link', async () => {
                     const elements = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]')
                     await elements[0].click();
                     await page.click('.login-modal__forgot')
@@ -102,13 +189,53 @@ describe(
                     await page.click('.close-btn')
                 })
 
-                it.only('Queue Modal: login modal link', async () => {
+                it('Queue Modal: media bar link', async () => {
                     await page.click('.mp-header__queue')
                     await page.waitForXPath("//h3[contains(text(), 'Queue')]")
                     await page.click('.close-btn')
                 })
 
+
+                it('Clip Modal: media bar link', async () => {
+                    await page.click('.mp-header__clip')
+                    await page.waitForXPath("//h3[contains(text(), 'Make Clip')]")
+                    await page.click('.make-clip-modal__cancel')
+                })
+
+                it('Add To Modal: media bar link', async () => {
+                    await page.click('.mp-header__add')
+                    await page.waitForXPath("//h3[contains(text(), 'Add To')]")
+                    await page.click('.close-btn')
+                })
+
+                it('Share Modal: media bar link', async () => {
+                    await page.click('.mp-header__share')
+                    await page.waitForXPath("//h3[contains(text(), 'Share')]")
+                    await page.click('.close-btn')
+                })
+
             }, 60000)
+
+
+        describe(
+            '/ (Misc)',
+            () => {
+
+                it('Dark Mode ► Light Mode', async () => {
+                    await page.waitForXPath('//html[@data-theme="dark"]')
+                    await page.click('.react-switch-bg')
+                    await page.waitForXPath('//html[@data-theme="light"]')
+                })
+
+                it('Meta: Twitter:Site', async () => {
+                    await testSharedMetaTags(page)
+                })
+            })
     },
     20000
 )
+
+const testSharedMetaTags = async (page) => {
+    await page.waitForXPath('//meta[@name="twitter:site"][@content="@podverse"]')
+    await page.waitForXPath('//meta[@name="twitter:site:id"][@content="2555941009"]')
+}
