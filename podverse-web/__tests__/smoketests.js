@@ -23,7 +23,7 @@ describe(
                 it('Load Homepage', async () => {
                     await page.goto(origin)
                     await page.waitForXPath("//a[contains(text(), 'Podverse')]")
-                }, 35000)
+                }, 40000)
 
                 it('About Page: footer link', async () => {
                     await page.click('.footer-bottom__link[href="/about"]')
@@ -50,16 +50,10 @@ describe(
                     await page.waitFor(5000)
                 }, 10000)
 
-
                 it('Podcasts Page: header link', async () => {
                     await page.click('.nav-link[href="/podcasts"]')
                     await page.waitForXPath("//h3[contains(text(), 'Podcasts')]")
                 }, 10000)
-
-                // it('Playlist Page: header link', async () => {
-                //     await page.click('.nav-link[href="/playlists"]')
-                //     await page.waitForXPath("//div[contains(text(), 'Login to view your playlists')]")
-                // }, 10000)
 
                 it('Settings Page: dropdown ► settings link', async () => {
                     await page.click('.dropdown-toggle')
@@ -216,10 +210,96 @@ describe(
 
             }, 60000)
 
+        describe(
+            '/ (Podcast Page)',
+            () => {
+                it('Load Homepage', async () => {
+                    await page.goto(origin)
+                    await page.waitForXPath("//a[contains(text(), 'Podverse')]")
+                }, 40000)
+
+                it('Search and Navigate to Podcast', async () => {
+                    const elements1 = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][@href="/search"]')
+                    await elements1[0].click();
+                    await page.waitForXPath("//h3[contains(text(), 'Search')]")
+                    await page.focus('.search__input')
+                    await page.keyboard.type('Very Bad Wizards')
+                    await page.click('.search__input-btn')
+                    await page.waitFor(2000)
+                    const elements2 = await page.$x('//div[@class="media-list-item-b__title"][contains (text(), "Very Bad Wizards")]')
+                    await elements2[0].click();
+                    await page.waitForXPath('//div[@class="media-header__sub-title"][contains(text(), "Tamler Sommers & David Pizarro")]')
+                }, 20000)
+
+                it('Podcast Page: Episodes ► Clips', async () => {
+                    const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Episodes")]')
+                    await elements1[0].click();
+                    const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "Clips")]')
+                    await elements2[0].click();
+                    await page.waitForXPath('//div[@class="media-list-item-a__title"][contains(text(), "Lacus sed turpis tincidunt id aliquet risus feugiat in ante.")]')
+                })
+
+                it('Podcast Page: Clips ► Episodes', async () => {
+                    const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Clips")]')
+                    await elements1[0].click();
+                    const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "Episodes")]')
+                    await elements2[0].click();
+                    await page.waitForXPath('//div[@class="media-list-item-a__title"][contains(text(), "Episode 1: Brains, Robots, and Free Will (Free Will and Morality Pt. 1)")]')
+                })
+
+                it('Podcast Page: Sort ► Most Recent', async () => {
+                    const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past week")]')
+                    await elements1[0].click();
+                    const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "most recent")]')
+                    await elements2[0].click();
+                    await page.waitForXPath("//button[contains(text(), 'most recent')]")
+                })
+
+                it('Podcast Page: Sort ► Top Past Day', async () => {
+                    const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "most recent")]')
+                    await elements1[0].click();
+                    const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past day")]')
+                    await elements2[0].click();
+                    await page.waitForXPath("//button[contains(text(), 'top - past day')]")
+                })
+
+                it('Podcast Page: Sort ► Top Past Week', async () => {
+                    const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past day")]')
+                    await elements1[0].click();
+                    const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past week")]')
+                    await elements2[0].click();
+                    await page.waitForXPath("//button[contains(text(), 'top - past week')]")
+                })
+
+                it('Podcast Page: Sort ► Top Past Month', async () => {
+                    const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past week")]')
+                    await elements1[0].click();
+                    const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past month")]')
+                    await elements2[0].click();
+                    await page.waitForXPath("//button[contains(text(), 'top - past month')]")
+                })
+
+                it('Podcast Page: Sort ► Top Past Year', async () => {
+                    const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past month")]')
+                    await elements1[0].click();
+                    const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past year")]')
+                    await elements2[0].click();
+                    await page.waitForXPath("//button[contains(text(), 'top - past year')]")
+                })
+
+            })
+
+
+
+
 
         describe(
             '/ (Misc)',
             () => {
+                it('Load Homepage', async () => {
+                    await page.goto(origin)
+                    await page.waitForXPath("//a[contains(text(), 'Podverse')]")
+                }, 40000)
 
                 it('Dark Mode ► Light Mode', async () => {
                     await page.waitForXPath('//html[@data-theme="dark"]')
