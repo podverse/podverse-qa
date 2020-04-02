@@ -288,17 +288,17 @@ describe(
                     await page.waitForXPath("//button[contains(text(), 'top - past month')]")
                 }, 10000)
 
-                // it('Podcast Page: Sort ► Top Past Year', async () => {
-                //     const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past month")]')
-                //     await elements1[0].click();
-                //     console.log('asdf', elements1)
-                //     await page.waitFor(1000)
-                //     const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past week")]')
-                //     console.log('zxcv', elements2)
-                //     await elements2[0].click();
-                //     await page.waitFor(5000)
-                //     await page.waitForXPath("//button[contains(text(), 'top - past week')]")
-                // }, 10000)
+                it('Podcast Page: Sort ► Top Past Year', async () => {
+                    const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past month")]')
+                    await elements1[0].click();
+                    console.log('asdf', elements1)
+                    await page.waitFor(1000)
+                    const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past week")]')
+                    console.log('zxcv', elements2)
+                    await elements2[0].click();
+                    await page.waitFor(5000)
+                    await page.waitForXPath("//button[contains(text(), 'top - past week')]")
+                }, 10000)
 
                 // it.only('Podcast Page: Page 2 of Past Year', async () => {
                 //     await page.waitFor(5000)
@@ -314,7 +314,7 @@ describe(
         describe(
             '/ (Misc)',
             () => {
-                it.only('Load Homepage', async () => {
+                it('Load Homepage', async () => {
                     await page.goto(origin)
                     await page.waitForXPath("//a[contains(text(), 'Podverse')]")
                 }, 40000)
@@ -325,9 +325,6 @@ describe(
                     await page.waitForXPath('//html[@data-theme="light"]')
                 })
 
-                it.only('Meta: Twitter:Site', async () => {
-                    await testSharedMetaTags(page)
-                })
             })
     },
     20000
