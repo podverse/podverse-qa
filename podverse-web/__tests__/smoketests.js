@@ -1,6 +1,6 @@
 // import expectPuppeteer from 'expect-puppeteer'
 
-const { getTestOrigin } = require('../utility')
+const { getTestOrigin, scrollIntoView } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -48,17 +48,11 @@ describe(
                     await page.focus('.search__input')
                     await page.keyboard.type('Very Bad Wizards')
                     await page.click('.search__input-btn')
-                    await page.waitFor(5000)
                 }, 10000)
 
                 it('Podcasts Page: header link', async () => {
                     await page.click('.nav-link[href="/podcasts"]')
                     await page.waitForXPath("//h3[contains(text(), 'Podcasts')]")
-                }, 10000)
-
-                it('Clips Page: header link', async () => {
-                    await page.click('.nav-link[href="/?type=clips&refresh=true"]')
-                    await page.waitForXPath("//div[contains(text(), 'Amet aliquam id diam maecenas ultricies mi eget.')]")
                 }, 10000)
 
                 it('Settings Page: dropdown ► settings link', async () => {
@@ -219,25 +213,25 @@ describe(
         describe(
             '/ (Podcast Page)',
             () => {
-                it.only('Load Homepage', async () => {
+                it('Load Homepage', async () => {
                     await page.goto(origin)
                     await page.waitForXPath("//a[contains(text(), 'Podverse')]")
                 }, 40000)
 
-                it.only('Search and Navigate to Podcast', async () => {
+                it('Search and Navigate to Podcast', async () => {
                     const elements1 = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][@href="/search"]')
                     await elements1[0].click();
                     await page.waitForXPath("//h3[contains(text(), 'Search')]")
                     await page.focus('.search__input')
                     await page.keyboard.type('Very Bad Wizards')
                     await page.click('.search__input-btn')
-                    await page.waitFor(2000)
+                    await page.waitFor(1000)
                     const elements2 = await page.$x('//div[@class="media-list-item-b__title"][contains (text(), "Very Bad Wizards")]')
                     await elements2[0].click();
                     await page.waitForXPath('//div[@class="media-header__sub-title"][contains(text(), "Tamler Sommers & David Pizarro")]')
                 }, 20000)
 
-                it.only('Podcast Page: Episodes ► Clips', async () => {
+                it('Podcast Page: Episodes ► Clips', async () => {
                     const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Episodes")]')
                     await elements1[0].click();
                     const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "Clips")]')
@@ -245,7 +239,7 @@ describe(
                     await page.waitForXPath('//div[@class="media-list-item-a__title"][contains(text(), "Lacus sed turpis tincidunt id aliquet risus feugiat in ante.")]')
                 })
 
-                it.only('Podcast Page: Clips ► Episodes', async () => {
+                it('Podcast Page: Clips ► Episodes', async () => {
                     const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Clips")]')
                     await elements1[0].click();
                     const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "Episodes")]')
@@ -292,21 +286,20 @@ describe(
                     const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past month")]')
                     await elements1[0].click();
                     console.log('asdf', elements1)
-                    await page.waitFor(1000)
                     const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past week")]')
                     console.log('zxcv', elements2)
                     await elements2[0].click();
-                    await page.waitFor(5000)
                     await page.waitForXPath("//button[contains(text(), 'top - past week')]")
                 }, 10000)
 
-                // it.only('Podcast Page: Page 2 of Past Year', async () => {
-                //     await page.waitFor(5000)
-                //     
-                //     const elements = await page.$x('//li[@class="page-item"]//button[@class="page-link"][contains (text(), "2")]')
-                //     await elements[0].click();
-                //     await page.waitForXPath('//div[@class="media-list-item-a__title"][contains(text(), "Episode 163")]')
-                // }, 10000)
+                it('Podcast Page: Page 2 of Past Year', async () => {
+                    await page.waitFor(2000)
+                    await scrollIntoView(page, '.pagination')
+                    const elements = await page.$x('//button[@class="page-link"][contains (text(), "2")]')
+                    await elements[0].click();
+                    await page.waitFor(2000)
+                    await page.waitForXPath('//div[@class="media-list-item-a__title"][contains(text(), "Episode 123: What Chilling Effect? (Intelligence Pt. 2)")]')
+                }, 15000)
 
             })
 
