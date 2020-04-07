@@ -1,3 +1,4 @@
+// import expectPuppeteer from 'expect-puppeteer'
 const { getTestOrigin } = require('../utility')
 const origin = getTestOrigin()
 
@@ -18,13 +19,12 @@ describe(
         })
 
         describe(
-            '/ (Premium valid)',
+            '/ (Account Types)',
             () => {
 
-                it.only('Login: Free Trial Valid', async () => {
-
-                    const elements1 = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]')
-                    await elements1[0].click();
+                it('Login: Free Trial', async () => {
+                    const elements = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]')
+                    await elements[0].click();
                     await page.waitForXPath("//h3[contains(text(), 'Login')]")
                     await page.waitFor(500)
                     await page.focus('.form-control[name=login-modal__email]')
@@ -34,31 +34,33 @@ describe(
                     await page.keyboard.type('Aa!1asdf')
                     await page.waitFor(500)
                     await page.click('.login-modal-btns-right__login.btn.btn-primary')
-                    await page.waitFor(3000)
-                    const elements2 = await page.$x('//li[@class="dropdown nav-item"]')
-                    await elements2[0].click();
                     await page.waitFor(500)
-                    const elements3 = await page.$x('//div[@class="dropdown-menu dropdown-menu-right show"]//a[@class="dropdown-item"][contains (text(), "My Profile")]')
-                    await elements3[0].click();
-                    await page.waitFor(500)
-                    await page.waitForXPath('//div[@class="media-header__title"][contains (text(), "Free Trial Valid - Test User")]')
                 }, 10000)
 
-                it.only('Log out and go to Home page', async () => {
-                    const elements1 = await page.$x('//li[@class="dropdown nav-item"]')
+                it('Free Trial: Valid', async () => {
+                    const elements = await page.$x('//button[@class="dropdown-item"][contains (text(), "Subscribed")]')
+                    expect(elements[0]).toBeTruthy()
+                    await page.waitFor(500)
+                })
+
+
+                it('Log out and go to Home page', async () => {
+                    await page.waitFor(500)
+                    await page.goto(origin)
+                    const elements1 = await page.$x('//ul[@class="ml-auto navbar-nav"]//li[@class="dropdown nav-item"]//button[@class="dropdown-toggle btn btn-secondary"]')
                     await elements1[0].click();
                     await page.waitFor(500)
                     const elements2 = await page.$x('//div[@class="dropdown-menu dropdown-menu-right show"]//button[@class="dropdown-item"][contains (text(), "Log out")]')
                     await elements2[0].click();
-                    await page.waitForXPath('//div[@class="media-header__title"][contains (text(), "anonymous")]')
+                    await page.waitFor(500)
                     await page.goto(origin)
-                    await page.waitForXPath("//a[contains(text(), 'Podverse')]")
+                    await page.waitForXPath('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains(text(), "Login")]')
                 }, 60000)
 
-                it.only('Login: Free Trial Expired', async () => {
+                it('Login: Free Trial Expired', async () => {
 
-                    const elements1 = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]')
-                    await elements1[0].click();
+                    const elements = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]')
+                    await elements[0].click();
                     await page.waitForXPath("//h3[contains(text(), 'Login')]")
                     await page.waitFor(500)
                     await page.focus('.form-control[name=login-modal__email]')
@@ -68,31 +70,30 @@ describe(
                     await page.keyboard.type('Aa!1asdf')
                     await page.waitFor(500)
                     await page.click('.login-modal-btns-right__login.btn.btn-primary')
-                    await page.waitFor(3000)
-                    const elements2 = await page.$x('//li[@class="dropdown nav-item"]')
-                    await elements2[0].click();
                     await page.waitFor(500)
-                    const elements3 = await page.$x('//div[@class="dropdown-menu dropdown-menu-right show"]//a[@class="dropdown-item"][contains (text(), "My Profile")]')
-                    await elements3[0].click();
-                    await page.waitFor(500)
-                    await page.waitForXPath('//div[@class="media-header__title"][contains (text(), "Free Trial Expired - Test User")]')
                 }, 10000)
 
-                it.only('Log out and go to Home page', async () => {
-                    const elements1 = await page.$x('//li[@class="dropdown nav-item"]')
+                it('Free Trial: Expired', async () => {
+                    await page.waitForXPath('//div[@class="alert alert-danger alert-dismissible show"][contains (text(), "Your free trial has ended.")]')
+                })
+
+
+                it('Log out and go to Home page', async () => {
+                    await page.waitFor(500)
+                    await page.goto(origin)
+                    const elements1 = await page.$x('//ul[@class="ml-auto navbar-nav"]//li[@class="dropdown nav-item"]//button[@class="dropdown-toggle btn btn-secondary"]')
                     await elements1[0].click();
                     await page.waitFor(500)
                     const elements2 = await page.$x('//div[@class="dropdown-menu dropdown-menu-right show"]//button[@class="dropdown-item"][contains (text(), "Log out")]')
                     await elements2[0].click();
-                    await page.waitForXPath('//div[@class="media-header__title"][contains (text(), "anonymous")]')
+                    await page.waitFor(500)
                     await page.goto(origin)
-                    await page.waitForXPath("//a[contains(text(), 'Podverse')]")
+                    await page.waitForXPath('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains(text(), "Login")]')
                 }, 60000)
 
-                it.only('Login: Premium Valid', async () => {
-
-                    const elements1 = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]')
-                    await elements1[0].click();
+                it('Login: Premium Valid', async () => {
+                    const elements = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]')
+                    await elements[0].click();
                     await page.waitForXPath("//h3[contains(text(), 'Login')]")
                     await page.waitFor(500)
                     await page.focus('.form-control[name=login-modal__email]')
@@ -102,31 +103,34 @@ describe(
                     await page.keyboard.type('Aa!1asdf')
                     await page.waitFor(500)
                     await page.click('.login-modal-btns-right__login.btn.btn-primary')
-                    await page.waitFor(3000)
-                    const elements2 = await page.$x('//li[@class="dropdown nav-item"]')
-                    await elements2[0].click();
                     await page.waitFor(500)
-                    const elements3 = await page.$x('//div[@class="dropdown-menu dropdown-menu-right show"]//a[@class="dropdown-item"][contains (text(), "My Profile")]')
-                    await elements3[0].click();
-                    await page.waitFor(500)
-                    await page.waitForXPath('//div[@class="media-header__title"][contains (text(), "Premium Valid - Test User")]')
                 }, 10000)
 
-                it.only('Log out and go to Home page', async () => {
-                    const elements1 = await page.$x('//li[@class="dropdown nav-item"]')
+                it('Premium: Valid', async () => {
+                    await page.waitFor(500)
+                    const elements = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Subscribed")]')
+                    expect(elements[0]).toBeTruthy()
+                    await page.waitFor(500)
+                }, 30000)
+
+
+                it('Log out and go to Home page', async () => {
+                    await page.waitFor(500)
+                    await page.goto(origin)
+                    const elements1 = await page.$x('//ul[@class="ml-auto navbar-nav"]//li[@class="dropdown nav-item"]//button[@class="dropdown-toggle btn btn-secondary"]')
                     await elements1[0].click();
                     await page.waitFor(500)
                     const elements2 = await page.$x('//div[@class="dropdown-menu dropdown-menu-right show"]//button[@class="dropdown-item"][contains (text(), "Log out")]')
                     await elements2[0].click();
-                    await page.waitForXPath('//div[@class="media-header__title"][contains (text(), "anonymous")]')
+                    await page.waitFor(500)
                     await page.goto(origin)
-                    await page.waitForXPath("//a[contains(text(), 'Podverse')]")
+                    await page.waitForXPath('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains(text(), "Login")]')
                 }, 60000)
 
-                it.only('Login: Premium Expired', async () => {
+                it('Login: Premium Expired', async () => {
 
-                    const elements1 = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]')
-                    await elements1[0].click();
+                    const elements = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]')
+                    await elements[0].click();
                     await page.waitForXPath("//h3[contains(text(), 'Login')]")
                     await page.waitFor(500)
                     await page.focus('.form-control[name=login-modal__email]')
@@ -136,15 +140,27 @@ describe(
                     await page.keyboard.type('Aa!1asdf')
                     await page.waitFor(500)
                     await page.click('.login-modal-btns-right__login.btn.btn-primary')
-                    await page.waitFor(3000)
-                    const elements2 = await page.$x('//li[@class="dropdown nav-item"]')
+                    await page.waitFor(500)
+                }, 10000)
+
+                it('Premium: Expired', async () => {
+                    await page.waitForXPath('//div[@class="alert alert-danger alert-dismissible show"][contains (text(), "Your membership has expired.")]')
+                })
+
+
+                it('Log out and go to Home page', async () => {
+                    await page.waitFor(500)
+                    await page.goto(origin)
+                    const elements1 = await page.$x('//ul[@class="ml-auto navbar-nav"]//li[@class="dropdown nav-item"]//button[@class="dropdown-toggle btn btn-secondary"]')
+                    await elements1[0].click();
+                    await page.waitFor(500)
+                    const elements2 = await page.$x('//div[@class="dropdown-menu dropdown-menu-right show"]//button[@class="dropdown-item"][contains (text(), "Log out")]')
                     await elements2[0].click();
                     await page.waitFor(500)
-                    const elements3 = await page.$x('//div[@class="dropdown-menu dropdown-menu-right show"]//a[@class="dropdown-item"][contains (text(), "My Profile")]')
-                    await elements3[0].click();
-                    await page.waitFor(500)
-                    await page.waitForXPath('//div[@class="media-header__title"][contains (text(), "Premium Expired - Test User")]')
-                }, 10000)
+                    await page.goto(origin)
+                    await page.waitForXPath('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains(text(), "Login")]')
+                }, 60000)
+
 
 
             }
