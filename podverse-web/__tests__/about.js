@@ -2,13 +2,13 @@ const { getTestOrigin } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
-    '/ (Podcast Page)',
+    '/ (About Page)',
     () => {
 
         let page
         beforeAll(async () => {
             page = await global.__BROWSER__.newPage()
-            await page.goto(origin + '/podcast/Yqft_RG8j')
+            await page.goto(origin + '/about')
         })
 
         afterAll(async () => {
@@ -17,8 +17,7 @@ describe(
         })
 
         it('loads the page', async () => {
-            await page.waitForXPath('//span[contains(text(), "Very Bad Wizards")]')
+            await page.waitForXPath('//h3[contains(text(), "About")]')
         }, 10000)
 
-    }
-)
+    }, 60000)
