@@ -8,7 +8,6 @@ describe(
         let page
         beforeAll(async () => {
             page = await global.__BROWSER__.newPage()
-            // await page.setViewport({ width: 1366, height: 768 });
             await page.goto(origin + '/clip/9rA5BhWp')
         })
 
@@ -18,8 +17,7 @@ describe(
         })
 
         it('loads the page', async () => {
-            await page.waitForXPath('//div[@class="media-list-item-a__title"][contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')
-            await page.waitForXPath('//a[@class="media-header__title"][contains(text(), "Recode Decode")]')
+            await page.waitForXPath('//div[contains(text(), "Amet aliquam id diam maecenas ultricies mi eget.")]')
         }, 10000)
 
         it('Clip Page Dropdowns: Clips ► Episodes', async () => {
@@ -30,10 +28,12 @@ describe(
             const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "Episodes")]')
             await elements2[0].click();
             await page.waitFor(2000)
-            await page.waitForXPath('//div[contains(text(), "Marc Andreessen, investor and entrepreneur")]')
+            await page.waitForXPath('//div[contains(text(), "Aicha Evans and Jesse Levinson: Self-driving taxis will be here in 2021")]')
         }, 10000)
 
         it('Clip Page Dropdowns: Episodes ► Clips', async () => {
+            await scrollIntoView(page, '.media-info__show-notes')
+            await page.waitFor(2000)
             const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Episodes")]')
             await elements1[0].click();
             await page.waitFor(2000)
