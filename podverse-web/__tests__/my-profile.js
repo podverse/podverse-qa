@@ -1,4 +1,4 @@
-const { getTestOrigin } = require('../utility')
+const { getTestOrigin, testLoginModal } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -17,17 +17,7 @@ describe(
         })
 
         it('Login: Premium Valid', async () => {
-            const elements = await page.$x('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains (text(), "Login")]')
-            await elements[0].click();
-            await page.waitForXPath("//h3[contains(text(), 'Login')]")
-            await page.waitFor(500)
-            await page.focus('.form-control[name=login-modal__email]')
-            await page.keyboard.type('premium@stage.podverse.fm')
-            await page.waitFor(500)
-            await page.focus('.form-control[name=login-modal__password]')
-            await page.keyboard.type('Aa!1asdf')
-            await page.waitFor(500)
-            await page.click('.login-modal-btns-right__login.btn.btn-primary')
+            await testLoginModal(page, "premium@stage.podverse.fm")
         }, 10000)
 
         it('loads the page', async () => {
