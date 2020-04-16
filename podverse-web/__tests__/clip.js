@@ -1,4 +1,4 @@
-const { getTestOrigin, scrollIntoView } = require('../utility')
+const { getTestOrigin, scrollIntoView, testDropdownItemSelect } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -44,72 +44,37 @@ describe(
 
         it('Clip Page: Sort ► Most Recent', async () => {
             await scrollIntoView(page, '.media-list__selects')
-            await page.waitFor(1000)
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past week")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "most recent")]')
-            await elements2[0].click();
-            await page.waitForXPath("//button[contains(text(), 'most recent')]")
+            await testDropdownItemSelect(page, "top - past week", "most recent")
         })
 
         it('Clip Page: Sort ► Top Past Day', async () => {
             await scrollIntoView(page, '.media-list__selects')
-            await page.waitFor(1000)
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "most recent")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past day")]')
-            await elements2[0].click();
-            await page.waitForXPath("//button[contains(text(), 'top - past day')]")
+            await testDropdownItemSelect(page, "most recent", "top - past day")
         })
 
         it('Clip Page: Sort ► Top Past Week', async () => {
             await scrollIntoView(page, '.media-list__selects')
-            await page.waitFor(1000)
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past day")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past week")]')
-            await elements2[0].click();
-            await page.waitForXPath("//button[contains(text(), 'top - past week')]")
+            await testDropdownItemSelect(page, "top - past day", "top - past week")
         })
 
         it('Clip Page: Sort ► Top Past Month', async () => {
             await scrollIntoView(page, '.media-list__selects')
-            await page.waitFor(1000)
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past week")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past month")]')
-            await elements2[0].click();
-            await page.waitForXPath("//button[contains(text(), 'top - past month')]")
+            await testDropdownItemSelect(page, "top - past week", "top - past month")
         })
 
         it('Clip Page: Sort ► Top Past Year', async () => {
             await scrollIntoView(page, '.media-list__selects')
-            await page.waitFor(1000)
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past month")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past year")]')
-            await elements2[0].click();
-            await page.waitForXPath("//button[contains(text(), 'top - past year')]")
+            await testDropdownItemSelect(page, "top - past month", "top - past year")
         })
 
         it('Clip Page: Sort ► Top All Time', async () => {
             await scrollIntoView(page, '.media-list__selects')
-            await page.waitFor(1000)
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past year")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - all time")]')
-            await elements2[0].click();
-            await page.waitForXPath("//button[contains(text(), 'top - all time')]")
+            await testDropdownItemSelect(page, "top - past year", "top - all time")
         })
 
         it('Clip Page: Sort ► Random', async () => {
             await scrollIntoView(page, '.media-list__selects')
-            await page.waitFor(1000)
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - all time")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "random")]')
-            await elements2[0].click();
-            await page.waitForXPath("//button[contains(text(), 'random')]")
+            await testDropdownItemSelect(page, "top - all time", "random")
         })
 
     }, 60000)
