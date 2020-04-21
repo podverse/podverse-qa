@@ -16,8 +16,34 @@ describe(
             await page.waitFor(1000)
         })
 
-        it('loads the page', async () => {
+        it('Search Page loads', async () => {
             await page.waitForXPath('//h3[contains(text(), "Search")]')
         }, 10000)
+
+        it('Search and Navigate to Podcast', async () => {
+            await page.focus('.search__input')
+            await page.keyboard.type('Very Bad Wizards')
+            await page.click('.search__input-btn')
+            await page.waitFor(1000)
+            const elements = await page.$x('//div[@class="media-list-item-b__title"][contains (text(), "Very Bad Wizards")]')
+            await elements[0].click();
+            await page.waitForXPath('//div[@class="media-header__sub-title"][contains(text(), "Tamler Sommers & David Pizarro")]')
+        }, 20000)
+
+        it('Search Page Loads Again', async () => {
+            await page.goto(origin + '/search')
+            await page.waitForXPath('//h3[contains(text(), "Search")]')
+        }, 10000)
+
+        it('Search and Navigate to Host', async () => {
+            await page.click('.search-by__host')
+            await page.focus('.search__input')
+            await page.keyboard.type('Tamler Sommers')
+            await page.click('.search__input-btn')
+            await page.waitFor(1000)
+            const elements = await page.$x('//div[@class="media-list-item-b__title"][contains (text(), "Very Bad Wizards")]')
+            await elements[0].click();
+            await page.waitForXPath('//div[@class="media-header__sub-title"][contains(text(), "Tamler Sommers & David Pizarro")]')
+        }, 20000)
 
     }, 60000)
