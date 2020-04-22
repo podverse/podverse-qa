@@ -12,8 +12,8 @@ module.exports = async function () {
 
   const launchSettings = {
     headless: false,
-    slowMo: 200,
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--window-size=1920,1080'],
+    defaultViewport: null
   }
 
   console.log(JSON.stringify(launchSettings))
