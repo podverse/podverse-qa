@@ -87,15 +87,6 @@ const testLogOut = async (page) => {
     await page.waitForXPath('//li[@class="hide-mobile nav-item"]//a[@class="nav-link"][contains(text(), "Login")]')
 }
 
-const testSortDropdown = async (page, before, after) => {
-    await page.waitFor(50)
-    const elements1 = await page.$x(before)
-    await elements1[0].click();
-    const elements2 = await page.$x(after)
-    await elements2[0].click();
-    await page.waitForXPath(after)
-}
-
 module.exports = {
     checkElementExistsByXPath,
     getTestOrigin,
@@ -103,6 +94,5 @@ module.exports = {
     testDropdownItemSelect,
     testLoginModal,
     testLogOut,
-    testSharedMetaTags,
-    testSortDropdown
+    testSharedMetaTags
 }
