@@ -1,4 +1,4 @@
-const { getTestOrigin, scrollIntoView } = require('../utility')
+const { getTestOrigin, scrollIntoView, testDropdownItemSelect } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -21,60 +21,31 @@ describe(
         }, 10000)
 
         it('Podcast Page: Episodes ► Clips', async () => {
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Episodes")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "Clips")]')
-            await elements2[0].click();
-            await page.waitForXPath('//div[@class="media-list-item-a__title"][contains(text(), "Lacus sed turpis tincidunt id aliquet risus feugiat in ante.")]')
+            await testDropdownItemSelect(page, "Episodes", "Clips")
         })
 
         it('Podcast Page: Clips ► Episodes', async () => {
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Clips")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "Episodes")]')
-            await elements2[0].click();
-            await page.waitForXPath('//div[@class="media-list-item-a__title"][contains(text(), "Episode 1: Brains, Robots, and Free Will (Free Will and Morality Pt. 1)")]')
+            await testDropdownItemSelect(page, "Clips", "Episodes")
         })
 
         it('Podcast Page: Sort ► Most Recent', async () => {
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past week")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "most recent")]')
-            await elements2[0].click();
-            await page.waitForXPath("//button[contains(text(), 'most recent')]")
+            await testDropdownItemSelect(page, "top - past week", "most recent")
         })
 
         it('Podcast Page: Sort ► Top Past Day', async () => {
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "most recent")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past day")]')
-            await elements2[0].click();
-            await page.waitForXPath("//button[contains(text(), 'top - past day')]")
+            await testDropdownItemSelect(page, "most recent", "top - past day")
         })
 
         it('Podcast Page: Sort ► Top Past Week', async () => {
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past day")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past week")]')
-            await elements2[0].click();
-            await page.waitForXPath("//button[contains(text(), 'top - past week')]")
+            await testDropdownItemSelect(page, "top - past day", "top - past week")
         })
 
         it('Podcast Page: Sort ► Top Past Month', async () => {
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past week")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past month")]')
-            await elements2[0].click();
-            await page.waitForXPath("//button[contains(text(), 'top - past month')]")
+            await testDropdownItemSelect(page, "top - past week", "top - past month")
         }, 10000)
 
-        xit('Podcast Page: Sort ► Top Past Year', async () => {
-            await page.waitFor(100)
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "top - past month")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "top - past week")]')
-            await elements2[0].click();
-            await page.waitForXPath("//button[contains(text(), 'top - past week')]")
+        it('Podcast Page: Sort ► Top Past Year', async () => {
+            await testDropdownItemSelect(page, "top - past month", "top - past year")
         }, 10000)
 
         it('Podcast Page: Page 2 of Past Year', async () => {
