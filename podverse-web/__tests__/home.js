@@ -1,4 +1,4 @@
-const { getTestOrigin, testDropdownItemSelect } = require('../utility')
+const { getTestOrigin, testDropdownItemSelect, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -103,6 +103,10 @@ describe(
 
         it('Home Page: Sort ► Random', async () => {
             await testDropdownItemSelect(page, "top - all time", "random")
+        })
+
+        it('Home Page: Meta Tags', async () => {
+            await testSharedMetaTags(page)
         })
 
     }, 60000)
