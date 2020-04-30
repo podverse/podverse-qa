@@ -1,4 +1,4 @@
-const { getTestOrigin } = require('../utility')
+const { checkElementExistsByXPath, getTestOrigin, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -19,5 +19,13 @@ describe(
         it('loads the page', async () => {
             await page.waitForXPath('//h3[contains(text(), "About")]')
         }, 10000)
+
+        it('About Page: Meta Tags', async () => {
+            await checkElementExistsByXPath(page, '//meta[@name="title"][@content="Podverse - About"]')
+        })
+
+        it('About Page: Shared Meta Tags', async () => {
+            await testSharedMetaTags(page)
+        })
 
     }, 60000)
