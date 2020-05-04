@@ -1,4 +1,4 @@
-const { getTestOrigin } = require('../utility')
+const { getTestOrigin, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -19,5 +19,9 @@ describe(
         it('loads the page', async () => {
             await page.waitForXPath('//div[contains(text(), "The Joe Rogan Experience")]')
         }, 10000)
+
+        it('Podcasts Page: Shared Meta Tags', async () => {
+            await testSharedMetaTags(page)
+        })
 
     }, 60000)

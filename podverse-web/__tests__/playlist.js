@@ -1,4 +1,4 @@
-const { getTestOrigin } = require('../utility')
+const { getTestOrigin, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -35,5 +35,9 @@ describe(
             await page.goto(origin + '/playlist/-67KgiG1')
             await page.waitForXPath('//div[contains(text(), "Diam quis enim lobortis scelerisque fermentum dui faucibus.")]')
         }, 10000)
+
+        it('Playlist Page: Shared Meta Tags', async () => {
+            await testSharedMetaTags(page)
+        })
 
     }, 60000)

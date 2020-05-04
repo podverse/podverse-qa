@@ -1,4 +1,4 @@
-const { getTestOrigin } = require('../utility')
+const { getTestOrigin, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -68,8 +68,14 @@ describe(
             await page.waitForXPath('//div[@class="media-list-item-b__title"][contains (text(), "Very Bad Wizards")]')
         }, 20000)
 
+        it('Search Page: Shared Meta Tags', async () => {
+            await testSharedMetaTags(page)
+        })
+
         it('Request a Podcast button loads properly', async () => {
             await page.waitForXPath('//a[@href="https://docs.google.com/forms/d/e/1FAIpQLSdewKP-YrE8zGjDPrkmoJEwCxPl_gizEkmzAlTYsiWAuAk1Ng/viewform?usp=sf_link"]')
         }, 10000)
+
+
 
     }, 60000)

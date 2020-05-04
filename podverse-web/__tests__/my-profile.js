@@ -1,4 +1,4 @@
-const { getTestOrigin, testLoginModal } = require('../utility')
+const { getTestOrigin, testLoginModal, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -25,5 +25,9 @@ describe(
             await page.goto(origin + '/my-profile')
             await page.waitForXPath('//div[contains(text(), "Premium Valid - Test User")]')
         }, 10000)
+
+        it('My-Profile Page: Shared Meta Tags', async () => {
+            await testSharedMetaTags(page)
+        })
 
     }, 60000)

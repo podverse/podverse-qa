@@ -33,8 +33,6 @@ const testSharedMetaTags = async (page) => {
         await checkElementExistsByXPath(page, '//meta[@name="twitter:app:name:iphone"][@content="Podverse"]')
         await checkElementExistsByXPath(page, '//meta[@name="twitter:app:id:iphone"][@content="1390888454"]')
         await checkElementExistsByXPath(page, '//meta[@name="twitter:card"][@content="summary_large_image"]')
-        await checkElementExistsByXPath(page, '//meta[@name="twitter:image"][@content="https://podverse.fm/images/podverse-logo-1200x630.png"]')
-        await checkElementExistsByXPath(page, '//meta[@name="twitter:image:alt"][@content="Podverse logo"]')
     } catch (error) {
         console.log('testSharedMetaTags', error.matcherResult.message)
         throw error

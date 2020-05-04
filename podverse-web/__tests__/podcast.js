@@ -1,4 +1,4 @@
-const { getTestOrigin, scrollIntoView, testDropdownItemSelect } = require('../utility')
+const { getTestOrigin, scrollIntoView, testDropdownItemSelect, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -56,6 +56,10 @@ describe(
             await page.waitFor(2000)
             await page.waitForXPath('//div[@class="media-list-item-a__title"][contains(text(), "Episode 123: What Chilling Effect? (Intelligence Pt. 2)")]')
         }, 15000)
+
+        it('Podcast Page: Shared Meta Tags', async () => {
+            await testSharedMetaTags(page)
+        })
 
     }
 )

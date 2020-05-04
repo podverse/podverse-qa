@@ -1,4 +1,4 @@
-const { getTestOrigin } = require('../utility')
+const { getTestOrigin, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -8,7 +8,7 @@ describe(
         let page
         beforeAll(async () => {
             page = await global.__BROWSER__.newPage()
-            await page.goto(origin + '/premium')
+            await page.goto(origin + '/membership')
         })
 
         afterAll(async () => {
@@ -19,5 +19,9 @@ describe(
         it('loads the page', async () => {
             await page.waitForXPath('//h3[contains(text(), "Premium")]')
         }, 10000)
+
+        it('Premium Page: Shared Meta Tags', async () => {
+            await testSharedMetaTags(page)
+        })
 
     }, 60000)
