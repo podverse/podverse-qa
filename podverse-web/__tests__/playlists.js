@@ -1,4 +1,4 @@
-const { getTestOrigin, testSharedMetaTags } = require('../utility')
+const { getTestOrigin, testPageMetaTags, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -22,6 +22,10 @@ describe(
 
         it('Playlists Page: Shared Meta Tags', async () => {
             await testSharedMetaTags(page)
+        })
+
+        it('Playlists Page: Page Meta Tags', async () => {
+            await testPageMetaTags(page, `Playlists`, `Create and share playlists of podcast clips and episodes.`)
         })
 
     }, 60000)

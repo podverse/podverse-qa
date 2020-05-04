@@ -1,4 +1,4 @@
-const { getTestOrigin, testSharedMetaTags } = require('../utility')
+const { getTestOrigin, testPageMetaTags, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -70,6 +70,10 @@ describe(
 
         it('Search Page: Shared Meta Tags', async () => {
             await testSharedMetaTags(page)
+        })
+
+        it('Search Page: Shared Meta Tags', async () => {
+            await testPageMetaTags(page, `Podverse - Search`, `Search for podcasts by title or host on Podverse.`)
         })
 
         it('Request a Podcast button loads properly', async () => {

@@ -1,4 +1,4 @@
-const { checkElementExistsByXPath, getTestOrigin, testSharedMetaTags } = require('../utility')
+const { checkElementExistsByXPath, getTestOrigin, testPageMetaTags, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -26,6 +26,10 @@ describe(
 
         it('About Page: Shared Meta Tags', async () => {
             await testSharedMetaTags(page)
+        })
+
+        it('About Page: Page Meta Tags', async () => {
+            await testPageMetaTags(page, 'Podverse - About', 'Information about the Podverse open source podcast app.')
         })
 
     }, 60000)

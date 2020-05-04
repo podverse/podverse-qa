@@ -39,6 +39,21 @@ const testSharedMetaTags = async (page) => {
     }
 }
 
+const testPageMetaTags = async (page, title, description) => {
+    try {
+        await checkElementExistsByXPath(page, `//meta[@name="title"][@content="${title}"]`)
+        await checkElementExistsByXPath(page, `//meta[@property="og:title"][@content="${title}"]`)
+        await checkElementExistsByXPath(page, `//meta[@name="twitter:title"][@content="${title}"]`)
+        await checkElementExistsByXPath(page, `//meta[@name="description"][@content="${description}"]`)
+        await checkElementExistsByXPath(page, `//meta[@property="og:description"][@content="${description}"]`)
+        await checkElementExistsByXPath(page, `//meta[@name="twitter:description"][@content="${description}"]`)
+
+    } catch (error) {
+        console.log('testSharedMetaTags', error.matcherResult.message)
+        throw error
+    }
+}
+
 const testDropdownItemSelect = async (page, element1Text, element2Text) => {
     await page.waitFor(1000)
     const elements1 = await page.$x(`//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "${element1Text}")]`)
@@ -84,5 +99,6 @@ module.exports = {
     testDropdownItemSelect,
     testLoginModal,
     testLogOut,
+    testPageMetaTags,
     testSharedMetaTags
 }
