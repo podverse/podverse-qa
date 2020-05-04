@@ -1,4 +1,4 @@
-const { getTestOrigin, scrollIntoView, testDropdownItemSelect } = require('../utility')
+const { getTestOrigin, scrollIntoView, testDropdownItemSelect, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -61,6 +61,10 @@ describe(
         it('Episode Page: Sort ► Random', async () => {
             await scrollIntoView(page, '.media-list__selects')
             await testDropdownItemSelect(page, "top - all time", "random")
+        })
+
+        it('Episode Page: Shared Meta Tags', async () => {
+            await testSharedMetaTags(page)
         })
 
     }, 60000)
