@@ -1,4 +1,4 @@
-const { getTestOrigin, testSharedMetaTags } = require('../utility')
+const { getTestOrigin, testPageMetaTags, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -22,6 +22,10 @@ describe(
 
         it('Profile Page: Shared Meta Tags', async () => {
             await testSharedMetaTags(page)
+        })
+
+        it('Profile Page: Page Meta Tags', async () => {
+            await testPageMetaTags(page, `Profiles`, `My subscribed profiles on Podverse`)
         })
 
     }, 60000)

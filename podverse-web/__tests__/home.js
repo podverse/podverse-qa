@@ -1,4 +1,4 @@
-const { getTestOrigin, testDropdownItemSelect, testSharedMetaTags } = require('../utility')
+const { getTestOrigin, testDropdownItemSelect, testPageMetaTags, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -105,8 +105,12 @@ describe(
             await testDropdownItemSelect(page, "top - all time", "random")
         })
 
-        it('Home Page: Meta Tags', async () => {
+        it('Home Page: Shared Meta Tags', async () => {
             await testSharedMetaTags(page)
+        })
+
+        it('Home Page: Page Meta Tags', async () => {
+            await testPageMetaTags(page, `Podverse - Create podcast highlights. Sync your podcasts across iOS, Android, and web. Open source technology.`, `Podcast app for iOS, Android, and web. Create and share podcast highlights and playlists. Sync your queue across all devices. Open source software.`)
         })
 
     }, 60000)

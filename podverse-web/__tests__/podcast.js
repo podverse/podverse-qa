@@ -1,4 +1,4 @@
-const { getTestOrigin, scrollIntoView, testDropdownItemSelect, testSharedMetaTags } = require('../utility')
+const { getTestOrigin, scrollIntoView, testDropdownItemSelect, testPageMetaTags, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -59,6 +59,10 @@ describe(
 
         it('Podcast Page: Shared Meta Tags', async () => {
             await testSharedMetaTags(page)
+        })
+
+        it('Podcast Page: Page Meta Tags', async () => {
+            await testPageMetaTags(page, `Very Bad Wizards`, `Very Bad Wizards is a podcast featuring a philosopher (Tamler Sommers) and a psychologist (David Pizarro), who share a love for ethics, pop culture, and cognitive science, and who have a marked inability to distinguish sacred from profane. Each podcast includes discussions of moral philosophy, recent work on moral psychology and neuroscience, and the overlap between the two.`)
         })
 
     }

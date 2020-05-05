@@ -1,4 +1,4 @@
-const { getTestOrigin, scrollIntoView, testDropdownItemSelect, testSharedMetaTags } = require('../utility')
+const { getTestOrigin, scrollIntoView, testDropdownItemSelect, testPageMetaTags, testSharedMetaTags } = require('../utility')
 const origin = getTestOrigin()
 
 describe(
@@ -79,6 +79,10 @@ describe(
 
         it('Clip Page: Shared Meta Tags', async () => {
             await testSharedMetaTags(page)
+        })
+
+        it('Clip Page: Page Meta Tags', async () => {
+            await testPageMetaTags(page, `Amet aliquam id diam maecenas ultricies mi eget.`, `Jason Calacanis: TikTok should be banned, Tim Cook doesn't have enough chutzpah, and Uber will be fine - Recode Decode`)
         })
 
     }, 60000)
