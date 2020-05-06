@@ -21,26 +21,30 @@ describe(
         }, 10000)
 
         it('Clip Page Dropdowns: Clips ► Episodes', async () => {
-            await page.waitFor(1000)
-            await scrollIntoView(page, '.media-list-selects__left')
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Clips")]')
-            await elements1[0].click();
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "Episodes")]')
-            await elements2[0].click();
-            await page.waitFor(2000)
-            await page.waitForXPath('//div[contains(text(), "Aicha Evans and Jesse Levinson: Self-driving taxis will be here in 2021")]')
+            await testDropdownItemSelect(page, "Clips", "Episodes")
         }, 10000)
 
         it('Clip Page Dropdowns: Episodes ► Clips', async () => {
-            await scrollIntoView(page, '.media-info__show-notes')
-            await page.waitFor(2000)
-            const elements1 = await page.$x('//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Episodes")]')
-            await elements1[0].click();
-            await page.waitFor(2000)
-            const elements2 = await page.$x('//button[@class="dropdown-item"][contains (text(), "Clips")]')
-            await elements2[0].click();
-            await page.waitForXPath('//div[contains(text(), "Viverra orci sagittis eu volutpat odio facilisis mauris sit.")]')
-        }, 12000)
+            await testDropdownItemSelect(page, "Episodes", "Clips")
+        }, 10000)
+
+        it('Clip Page: Clip Modal', async () => {
+            await page.click('.media-info-controls__make-clip.btn.btn-secondary')
+            await page.waitForXPath("//h3[contains(text(), 'Make Clip')]")
+            await page.click('.make-clip-modal__cancel')
+        })
+
+        it('Clip Page: Add To Modal', async () => {
+            await page.click('.media-info-controls__add-to.btn.btn-secondary')
+            await page.waitForXPath("//h3[contains(text(), 'Add To')]")
+            await page.click('.close-btn')
+        })
+
+        it('Clip Page: Share Modal', async () => {
+            await page.click('.media-info-controls__share.btn.btn-secondary')
+            await page.waitForXPath("//h3[contains(text(), 'Share')]")
+            await page.click('.close-btn')
+        })
 
         it('Clip Page: Sort ► Most Recent', async () => {
             await scrollIntoView(page, '.media-list__selects')
