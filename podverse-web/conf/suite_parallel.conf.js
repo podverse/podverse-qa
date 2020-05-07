@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 nightwatch_config = {
-  src_folders: ["tests/suite"],
+  src_folders: ["tests"],
 
   custom_commands_path: "extensions",
 
@@ -30,11 +30,6 @@ nightwatch_config = {
         browser: "firefox"
       }
     },
-    safari: {
-      desiredCapabilities: {
-        browser: "safari"
-      }
-    },
     ie: {
       desiredCapabilities: {
         browser: "internet explorer"
@@ -42,10 +37,10 @@ nightwatch_config = {
     }
   },
 
-  "test_workers": {
-    "enabled": true,
-    "workers": 10
-  }   
+  // "test_workers": {
+  //   "enabled": true,
+  //   "workers": 10
+  // }
 };
 
 for (var i in nightwatch_config.test_settings) {

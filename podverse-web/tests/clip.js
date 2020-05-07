@@ -8,7 +8,7 @@ module.exports = {
   before: function (browser) {
     browser.url('https://stage.podverse.fm/clip/9rA5BhWp')
   },
-  'User login tests': function (browser) {
+  'Clip Page tests': function (browser) {
     browser
       .testSharedMetaTags()
       .testPageMetaTags(

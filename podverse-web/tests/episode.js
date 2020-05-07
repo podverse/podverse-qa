@@ -1,74 +1,30 @@
-// const { getTestOrigin, scrollIntoView, testDropdownItemSelect, testPageMetaTags, testSharedMetaTags } = require('../utility')
-// const origin = getTestOrigin()
+const dropdownToggleClipsXpath = '//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Clips")]'
+const dropdownToggleEpisodesXpath = '//button[@class="transparent dropdown-toggle btn btn-secondary"][contains (text(), "Episodes")]'
+const dropdownItemClipsXpath = '//button[@class="dropdown-item"][contains (text(), "Clips")]'
+const dropdownItemEpisodesXpath = '//button[@class="dropdown-item"][contains (text(), "Episodes")]'
+const mediaListSelectsSelector = '.media-list__selects'
 
-// describe(
-//     '/ (Episode Page)',
-//     () => {
-
-//         let page
-//         beforeAll(async () => {
-//             page = await global.__BROWSER__.newPage()
-//             await page.goto(origin + '/episode/nkLmKNNwwcO')
-//         })
-
-//         afterAll(async () => {
-//             await page.close()
-//             await page.waitFor(1000)
-//         })
-
-//         it('loads the page', async () => {
-//             await page.waitForXPath('//div[contains(text(), "The Americans are coming, but will the war be over by the time they get there? Germany throws everything into a last series of stupendous attacks in the West while hoping to avoid getting burned by a fire in the East they helped fan.")]')
-//         }, 10000)
-
-//         it('Episode Page Dropdowns: Clips ► Episodes', async () => {
-//             await testDropdownItemSelect(page, "Clips", "Episodes")
-//         })
-
-//         it('Episode Page Dropdowns: Episodes ► Clips', async () => {
-//             await testDropdownItemSelect(page, "Episodes", "Clips")
-//         })
-
-//         it('Episode Page: Sort ► Most Recent', async () => {
-//             await scrollIntoView(page, '.media-list__selects')
-//             await testDropdownItemSelect(page, "top - past week", "most recent")
-//         })
-
-//         it('Episode Page: Sort ► Top Past Day', async () => {
-//             await scrollIntoView(page, '.media-list__selects')
-//             await testDropdownItemSelect(page, "most recent", "top - past day")
-//         })
-
-//         it('Episode Page: Sort ► Top Past Week', async () => {
-//             await scrollIntoView(page, '.media-list__selects')
-//             await testDropdownItemSelect(page, "top - past day", "top - past week")
-//         })
-
-//         it('Episode Page: Sort ► Top Past Month', async () => {
-//             await scrollIntoView(page, '.media-list__selects')
-//             await testDropdownItemSelect(page, "top - past week", "top - past month")
-//         })
-
-//         it('Episode Page: Sort ► Top Past Year', async () => {
-//             await scrollIntoView(page, '.media-list__selects')
-//             await testDropdownItemSelect(page, "top - past month", "top - past year")
-//         })
-
-//         it('Episode Page: Sort ► Top All Time', async () => {
-//             await scrollIntoView(page, '.media-list__selects')
-//             await testDropdownItemSelect(page, "top - past year", "top - all time")
-//         })
-
-//         it('Episode Page: Sort ► Random', async () => {
-//             await scrollIntoView(page, '.media-list__selects')
-//             await testDropdownItemSelect(page, "top - all time", "random")
-//         })
-
-//         it('Episode Page: Shared Meta Tags', async () => {
-//             await testSharedMetaTags(page)
-//         })
-
-//         it('Episode Page: Page Meta Tags', async () => {
-//             await testPageMetaTags(page, `Show 55 - Blueprint for Armageddon VI - Dan Carlin's Hardcore History`, `The Americans are coming, but will the war be over by the time they get there? Germany throws everything into a last series of stupendous attacks in the West while hoping to avoid getting burned by a fire in the East they helped fan.`)
-//         })
-
-//     }, 60000)
+module.exports = {
+    before: function (browser) {
+        browser.url('https://stage.podverse.fm/episode/nkLmKNNwwcO')
+    },
+    'Episode Page tests': function (browser) {
+        browser
+            .testSharedMetaTags()
+            .testPageMetaTags(
+                `Show 55 - Blueprint for Armageddon VI - Dan Carlin's Hardcore History`,
+                `The Americans are coming, but will the war be over by the time they get there? Germany throws everything into a last series of stupendous attacks in the West while hoping to avoid getting burned by a fire in the East they helped fan.`
+            )
+            .waitForXpathPresent('//div[contains(text(), "The Americans are coming, but will the war be over by the time they get there? Germany throws everything into a last series of stupendous attacks in the West while hoping to avoid getting burned by a fire in the East they helped fan.")]')
+            .scrollToSelector(mediaListSelectsSelector)
+            .click('xpath', dropdownToggleClipsXpath)
+            .click('xpath', dropdownItemEpisodesXpath)
+            .waitForXpathPresent('//div[contains(text(), "Show 55 - Blueprint for Armageddon VI")]')
+            .click('xpath', dropdownToggleEpisodesXpath)
+            .click('xpath', dropdownItemClipsXpath)
+            .waitForXpathPresent('//div[contains(text(), "Ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae.")]')
+    },
+    after: function (browser) {
+        browser.end()
+    }
+};
