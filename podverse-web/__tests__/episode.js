@@ -28,6 +28,24 @@ describe(
             await testDropdownItemSelect(page, "Episodes", "Clips")
         })
 
+        it('Episode Page: Clip Modal', async () => {
+            await page.click('.media-info-controls__make-clip.btn.btn-secondary')
+            await page.waitForXPath("//h3[contains(text(), 'Make Clip')]")
+            await page.click('.make-clip-modal__cancel')
+        })
+
+        it('Episode Page: Add To Modal', async () => {
+            await page.click('.media-info-controls__add-to.btn.btn-secondary')
+            await page.waitForXPath("//h3[contains(text(), 'Add To')]")
+            await page.click('.close-btn')
+        })
+
+        it('Episode Page: Share Modal', async () => {
+            await page.click('.media-info-controls__share.btn.btn-secondary')
+            await page.waitForXPath("//h3[contains(text(), 'Share')]")
+            await page.click('.close-btn')
+        })
+
         it('Episode Page: Sort ► Most Recent', async () => {
             await scrollIntoView(page, '.media-list__selects')
             await testDropdownItemSelect(page, "top - past week", "most recent")
