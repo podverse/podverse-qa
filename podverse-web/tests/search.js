@@ -1,85 +1,52 @@
-// const { getTestOrigin, testPageMetaTags, testSharedMetaTags } = require('../utility')
-// const origin = getTestOrigin()
+const searchInput = `.search__input`
 
-// describe(
-//     '/ (Search Page)',
-//     () => {
+module.exports = {
+    before: function (browser) {
+        browser.url('https://stage.podverse.fm/search')
+    },
+    'Search Page': function (browser) {
+        browser
+            .testSharedMetaTags()
+            .testPageMetaTags(
+                'Podverse - Search',
+                'Search for podcasts by title or host on Podverse.'
+            )
+            .waitForXpathPresent(`//h3[contains(text(), "Search")]`)
 
-//         let page
-//         beforeAll(async () => {
-//             page = await global.__BROWSER__.newPage()
-//             await page.goto(origin + '/search')
-//         })
+            .sendKeys(searchInput, `The Joe Rogan Experience`)
+            .click(`.search__input-btn`)
+            .pause(500)
+            .waitForXpathPresent(`//div[@class="media-list-item-b__title"][contains (text(), "The Joe Rogan Experience")]`)
 
-//         afterAll(async () => {
-//             await page.close()
-//             await page.waitFor(1000)
-//         })
+            .clearValue(searchInput)
 
-//         it('Search Page loads', async () => {
-//             await page.waitForXPath('//h3[contains(text(), "Search")]')
-//         }, 10000)
+            .sendKeys(searchInput, `Very Bad Wizards`)
+            .sendKeys(searchInput, browser.Keys.ENTER)
+            .pause(500)
+            .waitForXpathPresent(`//div[@class="media-list-item-b__title"][contains (text(), "Very Bad Wizards")]`)
 
-//         it('Search Podcast: Mouse Click', async () => {
-//             await page.focus('.search__input')
-//             await page.keyboard.type('The Joe Rogan Experience')
-//             await page.click('.search__input-btn')
-//             await page.waitFor(500)
-//             await page.waitForXPath('//div[@class="media-list-item-b__title"][contains (text(), "The Joe Rogan Experience")]')
-//         }, 20000)
+            .click(`.media-list__item `)
+            .waitForXpathPresent(`//div[@class="media-header__sub-title"][contains (text(), "Tamler Sommers & David Pizarro")]`)
 
-//         it('Search Podcast: Enter Key', async () => {
-//             await page.focus('.search__input')
-//             await page.$eval('.search__input', el => el.setSelectionRange(0, el.value.length))
-//             await page.keyboard.press('Backspace')
-//             await page.keyboard.type('Very Bad Wizards')
-//             await page.keyboard.press('Enter')
-//             await page.waitFor(500)
-//             await page.waitForXPath('//div[@class="media-list-item-b__title"][contains (text(), "Very Bad Wizards")]')
-//         }, 20000)
+            .url('https://stage.podverse.fm/search')
 
-//         it('Navigate to Podcast', async () => {
-//             const elements = await page.$x('//div[@class="media-list-item-b__title"][contains (text(), "Very Bad Wizards")]')
-//             await elements[0].click();
-//             await page.waitForXPath('//div[@class="media-header__sub-title"][contains(text(), "Tamler Sommers & David Pizarro")]')
-//         }, 20000)
+            .click(`.search-by__host`)
+            .sendKeys(searchInput, `Joe Rogan`)
+            .click(`.search__input-btn`)
+            .pause(500)
+            .waitForXpathPresent(`//div[@class="media-list-item-b__title"][contains (text(), "The Joe Rogan Experience")]`)
 
-//         it('Search Page Loads: Again', async () => {
-//             await page.goto(origin + '/search')
-//             await page.waitForXPath('//h3[contains(text(), "Search")]')
-//         }, 10000)
+            .clearValue(searchInput)
 
-//         it('Search Host: Mouse Click', async () => {
-//             await page.focus('.search__input')
-//             await page.keyboard.type('Joe Rogan')
-//             await page.click('.search__input-btn')
-//             await page.waitFor(500)
-//             await page.waitForXPath('//div[@class="media-list-item-b__title"][contains (text(), "The Joe Rogan Experience")]')
-//         }, 20000)
+            .sendKeys(searchInput, `Tamler Sommers`)
+            .sendKeys(searchInput, browser.Keys.ENTER)
+            .pause(500)
+            .waitForXpathPresent(`//div[@class="media-list-item-b__title"][contains (text(), "Very Bad Wizards")]`)
 
-//         it('Search Host: Enter Key', async () => {
-//             await page.click('.search-by__host')
-//             await page.focus('.search__input')
-//             await page.$eval('.search__input', el => el.setSelectionRange(0, el.value.length))
-//             await page.keyboard.press('Backspace')
-//             await page.keyboard.type('Tamler Sommers')
-//             await page.keyboard.press('Enter')
-//             await page.waitFor(500)
-//             await page.waitForXPath('//div[@class="media-list-item-b__title"][contains (text(), "Very Bad Wizards")]')
-//         }, 20000)
+            .waitForXpathPresent(`//a[@href="https://docs.google.com/forms/d/e/1FAIpQLSdewKP-YrE8zGjDPrkmoJEwCxPl_gizEkmzAlTYsiWAuAk1Ng/viewform?usp=sf_link"]`)
 
-//         it('Search Page: Shared Meta Tags', async () => {
-//             await testSharedMetaTags(page)
-//         })
-
-//         it('Search Page: Shared Meta Tags', async () => {
-//             await testPageMetaTags(page, `Podverse - Search`, `Search for podcasts by title or host on Podverse.`)
-//         })
-
-//         it('Request a Podcast button loads properly', async () => {
-//             await page.waitForXPath('//a[@href="https://docs.google.com/forms/d/e/1FAIpQLSdewKP-YrE8zGjDPrkmoJEwCxPl_gizEkmzAlTYsiWAuAk1Ng/viewform?usp=sf_link"]')
-//         }, 10000)
-
-
-
-//     }, 60000)
+    },
+    after: function (browser) {
+        browser.end()
+    }
+};
