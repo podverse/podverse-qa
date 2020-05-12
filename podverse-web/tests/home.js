@@ -35,7 +35,7 @@ module.exports = {
     before: function (browser) {
         browser.url('https://stage.podverse.fm/')
     },
-    'Episode Page tests': function (browser) {
+    'Home Page tests': function (browser) {
         browser
             .testSharedMetaTags()
             .testPageMetaTags(
@@ -73,19 +73,6 @@ module.exports = {
 
             .scrollToSelector(mediaListSelectsSelector)
             .clickDropdownToggleAndItem("Health", "Music")
-
-            .scrollToSelector(mediaListSelectsSelector)
-            .clickDropdownToggleAndItem("Music", "News & Politics")
-
-            .scrollToSelector(mediaListSelectsSelector)
-            .clickDropdownToggleAndItem("News & Politics", "Religion & Spirituality")
-
-            .scrollToSelector(mediaListSelectsSelector)
-            .clickDropdownToggleAndItem("Religion & Spirituality", "Science & Medicine")
-
-            .scrollToSelector(mediaListSelectsSelector)
-            .clickDropdownToggleAndItem("Science & Medicine", "Society & Culture")
-
     },
     after: function (browser) {
         browser.end()
