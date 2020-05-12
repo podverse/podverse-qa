@@ -33,12 +33,10 @@ module.exports = {
     'Footer': function (browser) {
         browser
             .waitForXpathPresent(`//a[contains(text(), 'Podverse')]`)
-
             .waitForXpathPresent(`//html[@data-theme="dark"]`)
-            .click(`.react-switch-bg`)
+            .scrollToSelector(`.react-switch-handle`, 'down')
+            .click(`.react-switch-handle`)
             .waitForXpathPresent(`//html[@data-theme="light"]`)
-
-            .waitForElementWithText('div', 'Login to view your playlists')
     },
     after: function (browser) {
         browser.end()
