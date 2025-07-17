@@ -1,0 +1,32 @@
+{
+  "name": "podverse-qa",
+  "version": "5.1.2-develop",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build:watch": "nodemon --watch 'src' --delay 500ms -x \"npm run build\"",
+    "build": "tsc",
+    "lint": "eslint ./src --ext .ts",
+    "start": "ts-node ./dist/index.js"
+  },
+  "author": "",
+  "license": "AGPLv3",
+  "dependencies": {
+    "module-alias": "^2.2.3"
+  },
+  "devDependencies": {
+    "@eslint/config-array": "^0.18.0",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.8.0",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.9.0",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.0.1"
+  }
+}
