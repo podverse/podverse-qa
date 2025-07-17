@@ -1,5 +1,3 @@
-import '../../module-alias-config';
-
 if (process.env.NODE_ENV !== 'production') {
   require('@dotenvx/dotenvx').config({ path: '.env' });
 }
@@ -16,7 +14,7 @@ if (!script) {
     await AppDataSourceRead.initialize();
     await AppDataSourceReadWrite.initialize();
     // Use dynamic import for TypeScript files to ensure compatibility
-    const { default: defaultFunc } = await import(`./scripts/${script}.ts`);
+    const { default: defaultFunc } = await import(`./${script}.ts`);
     await defaultFunc();
   } catch (err) {
     console.error(err);

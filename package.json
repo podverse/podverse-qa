@@ -12,16 +12,18 @@
     "build": "tsc",
     "lint": "eslint ./src --ext .ts",
     "start": "ts-node ./dist/index.js",
-    "faker": "ts-node ./faker/index.ts"
+    "faker": "ts-node ./src/faker/index.ts"
   },
   "author": "",
   "license": "AGPLv3",
   "dependencies": {
     "@faker-js/faker": "^9.9.0",
     "module-alias": "^2.2.3",
+    "podverse-helpers": "^5.1.0",
     "podverse-orm": "^5.0.5"
   },
   "devDependencies": {
+    "@dotenvx/dotenvx": "^1.6.4",
     "@eslint/config-array": "^0.18.0",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.8.0",
