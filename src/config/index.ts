@@ -1,0 +1,12 @@
+export const config = {
+  log: {
+    level: process.env.LOG_LEVEL || 'info',
+    dir: process.env.LOG_DIR || 'logs',
+    timer: process.env.LOG_TIMER === 'true',
+  },
+  podcastIndex: {
+    authKey: process.env.PODCAST_INDEX_AUTH_KEY || '',
+    baseUrl: process.env.PODCAST_INDEX_BASE_URL || '',
+    secretKey: process.env.PODCAST_INDEX_SECRET_KEY || ''
+  }
+};

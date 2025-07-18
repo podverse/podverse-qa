@@ -10,7 +10,7 @@ export default async function createStatsAggregatedChannel() {
   }
   const statsRepo = AppDataSourceReadWrite.getRepository(StatsAggregatedChannel);
   for (let i = 0; i < 25; i++) {
-    const channel = faker.helpers.arrayElement(channels);
+    const channel = channels[i];
     let stats = await statsRepo.findOne({ where: { channel_id: channel.id } });
     let statsInstance: StatsAggregatedChannel;
     if (stats) {

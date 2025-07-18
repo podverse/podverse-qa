@@ -1,4 +1,8 @@
-.env
+# API keys and secrets
+**/.env*
+!**/.env.example
+
+config/firebase/firebase-key.json
 
 .DS_STORE
 
