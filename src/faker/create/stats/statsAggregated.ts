@@ -40,6 +40,6 @@ export default async function createStatsAggregatedChannel() {
     statsInstance.month_1_count = faker.number.int({ min: 0, max: 20000 });
     statsInstance.all_time_count = faker.number.int({ min: 0, max: 100000 });
     await statsRepo.save(statsInstance);
-    console.log(`Created/updated stats_aggregated_channel row ${i + 1}:`, statsInstance);
+    console.log(`Created/updated stats_aggregated_channel row ${i + 1}: ${statsInstance.channel.id}`, statsInstance.channel.title);
   }
 }
