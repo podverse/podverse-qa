@@ -9,7 +9,7 @@ export default async function createStatsAggregatedChannel() {
     return;
   }
   const statsRepo = AppDataSourceReadWrite.getRepository(StatsAggregatedChannel);
-  for (let i = 0; i < 25; i++) {
+  for (let i = 0; i < channels.length; i++) {
     const channel = channels[i];
     let stats = await statsRepo.findOne({ where: { channel_id: channel.id } });
     let statsInstance: StatsAggregatedChannel;
