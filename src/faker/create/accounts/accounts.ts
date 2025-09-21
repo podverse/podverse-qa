@@ -1,18 +1,13 @@
 import { AccountMembershipEnum } from 'podverse-helpers';
 import { AccountService, AccountMembershipStatusService } from 'podverse-orm';
+import { FAKER } from '../../constants';
+
 
 export default async function () {
   const accountService = new AccountService();
   const accountMembershipStatusService = new AccountMembershipStatusService();
 
-  const accounts = [
-    { email: 'basic-valid@example.com', password: 'Test!1Aa' },
-    { email: 'trial-valid@example.com', password: 'Test!1Aa' },
-    { email: 'trial-expired@example.com', password: 'Test!1Aa' },
-    { email: 'basic-expired@example.com', password: 'Test!1Aa' }
-  ];
-
-  for (const acc of accounts) {
+  for (const acc of FAKER.ACCOUNTS) {
     try {
       const qaVerified = true;
       await accountService.create(acc, qaVerified);
