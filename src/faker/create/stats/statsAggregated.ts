@@ -1,16 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { faker } from '@faker-js/faker';
-import { AppDataSourceReadWrite, Channel, Item, Playlist, StatsAggregatedChannel, StatsAggregatedItem, StatsAggregatedPlaylist } from 'podverse-orm';
+import { AppDataSourceReadWrite, Channel, Clip, Item, Playlist, StatsAggregatedChannel, StatsAggregatedClip, StatsAggregatedItem, StatsAggregatedPlaylist } from 'podverse-orm';
 
 export default async function createStatsAggregated() {
   await createStatsAggregatedChannel();
   await createStatsAggregatedItem();
   await createStatsAggregatedPlaylist();
+  await createStatsAggregatedClip();
 }
 
-type EntityType = Channel | Item | Playlist;
-type StatsType = StatsAggregatedChannel | StatsAggregatedItem | StatsAggregatedPlaylist;
+type EntityType = Channel | Item | Playlist | Clip;
+type StatsType = StatsAggregatedChannel
+  | StatsAggregatedItem
+  | StatsAggregatedPlaylist
+  | StatsAggregatedClip;
 
 interface StatsConfig<T extends EntityType, S extends StatsType> {
   entityRepo: any;
@@ -101,5 +105,19 @@ async function createStatsAggregatedPlaylist() {
     getEntityId: (p) => p.id,
     getEntityTitle: (p) => p.title ?? '',
     StatsClass: StatsAggregatedPlaylist,
+  });
+}
+
+async function createStatsAggregatedClip() {
+  await createStatsAggregatedGeneric<Clip, StatsAggregatedClip>({
+    entityRepo: AppDataSourceReadWrite.getRepository(Clip),
+    statsRepo: AppDataSourceReadWrite.getRepository(StatsAggregatedClip),
+    entityKey: 'clip',
+    entityIdKey: 'clip_id',
+    entityName: 'clip',
+    statsName: 'stats_aggregated_clip',
+    getEntityId: (c) => c.id,
+    getEntityTitle: (c) => c.title ?? '',
+    StatsClass: StatsAggregatedClip
   });
 }
