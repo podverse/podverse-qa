@@ -8,9 +8,8 @@ export default async function () {
 
   const mediums = [
     MediumEnum.Podcast,
-    MediumEnum.Music,
     MediumEnum.Video,
-    MediumEnum.Mixed
+    MediumEnum.Music
   ];
 
   const sharableStatuses = [
