@@ -59,10 +59,6 @@ async function createStatsAggregatedGeneric<T extends EntityType, S extends Stat
     statsInstance['month_1_count'] = faker.number.int({ min: 0, max: 20000 });
     statsInstance['all_time_count'] = faker.number.int({ min: 0, max: 100000 });
     await config.statsRepo.save(statsInstance);
-    console.log(
-      `Created/updated ${config.statsName} row ${i + 1}: ${config.getEntityId(entity)}`,
-      config.getEntityTitle(entity)
-    );
   }
 }
 

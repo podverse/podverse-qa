@@ -27,7 +27,6 @@ async function createAccountChannelFollowings() {
       continue;
     }
     for (const channel of channels) {
-      console.log(`Following channel: ${channel.id_text} for account: ${account.id} (${email})`);
       await accountFollowingChannelService.followChannel(account.id, channel.id_text);
     }
   }
@@ -56,7 +55,6 @@ async function createAccountPlaylistFollowings() {
     }
 
     for (const playlist of playlists) {
-      console.log(`Following playlist: ${playlist.id_text} for account: ${account.id} (${email})`);
       await accountFollowingPlaylistService.followPlaylist(account.id, playlist.id_text);
     }
   }
