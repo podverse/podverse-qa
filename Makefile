@@ -1,5 +1,6 @@
 local_qa_init_data:
 	npm run faker local create/feeds-channels-items
+	npm run faker local create/pi-feeds-channels-items
 	npm run faker local create/accounts/accounts
 	npm run faker local create/clips/clips
 	npm run faker local create/playlists/playlists
