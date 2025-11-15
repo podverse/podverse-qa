@@ -21,8 +21,7 @@ export default async function () {
       for (let i = 0; i < 30; i++) {
         const medium_id = i % 2 === 0 ? MediumEnum.Podcast : MediumEnum.Video;
         const item = await itemService.getRandomItem(medium_id);
-
-
+        
         const maxTime = 600;
         const minDuration = 15;
         const setEndTime = Math.random() < 0.75;
@@ -43,7 +42,7 @@ export default async function () {
         });
       }
     } catch (err) {
-      console.error(`Error creating account ${acc.email}:`, err);
+      console.error(`Error creating clip for account ${acc.email}:`, err);
     }
   }
 }
