@@ -1,15 +1,17 @@
 import { parseRSSFeedAndSaveToDatabase } from 'podverse-parser';
 import { podcastIndexService } from '../../factories/podcastIndexService';
 
-export default async function createFeedsChannelsItems() {
-  const max = 30;
-  const { feeds } = await podcastIndexService.trendingGetPodcasts(max);
+export default async function createQuickFeedsChannelsItems() {
+  const podcastIds = [
+    7581642 // PVDemo - Podcast // https://podcastindex.org/podcast/7581642
+  ];
 
-  for (const feed of feeds) {
+  for (const podcastId of podcastIds) {
     try {
-      await parseRSSFeedAndSaveToDatabase(feed.url, feed.id);
+      const { feed } = await podcastIndexService.podcastGetById(podcastId);
+      await parseRSSFeedAndSaveToDatabase(feed.url, podcastId);
     } catch (error) {
-      console.error(`Error processing feed ${feed.id}:`, error);
+      console.error(`Error processing podcast ${podcastId}:`, error);
     }
   }
 }
