@@ -33,7 +33,6 @@ export default async function () {
           account_membership_id: membership_type,
           membership_expires_at
         });
-        console.log(`Created account: ${acc.email} with membership expiring ${membership_expires_at}`);
       } else {
         console.warn(`No membership type set for account: ${acc.email}`);
       }

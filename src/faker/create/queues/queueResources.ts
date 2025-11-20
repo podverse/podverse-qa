@@ -37,7 +37,7 @@ export default async function () {
                 }
               }
             } catch (err) {
-              console.log('Error adding to queue:', err);
+              console.error('Error adding to queue:', err);
             }
           }
 
@@ -84,7 +84,7 @@ export default async function () {
                 }
               } 
             } catch (err) {
-              console.log('Error adding to history:', err);
+              console.error('Error adding to history:', err);
             }     
           }
         }

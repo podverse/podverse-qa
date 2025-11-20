@@ -31,7 +31,7 @@ interface StatsConfig<T extends EntityType, S extends StatsType> {
 async function createStatsAggregatedGeneric<T extends EntityType, S extends StatsType>(config: StatsConfig<T, S>) {
   const entities = await config.entityRepo.find();
   if (!entities.length) {
-    console.log(`No ${config.entityName}s found.`);
+    console.warn(`No ${config.entityName}s found.`);
     return;
   }
   for (let i = 0; i < entities.length; i++) {
