@@ -17,7 +17,8 @@ async function createAccountChannelFollowings() {
     "trial-expired@example.com"
   ];
 
-  const channels = await channelService.getMany({ take: 25 });
+  const medium_id = null;
+  const channels = await channelService.getMany({ take: 25 }, medium_id);
   if (!channels.length) throw new Error('No channels found');
 
   for (const email of emails) {
