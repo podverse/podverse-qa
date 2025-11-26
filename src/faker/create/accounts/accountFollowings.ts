@@ -18,7 +18,8 @@ async function createAccountChannelFollowings() {
   ];
 
   const medium_id = null;
-  const channels = await channelService.getMany({ take: 25 }, medium_id);
+  const category_id = null;
+  const channels = await channelService.getMany({ take: 25 }, medium_id, category_id);
   if (!channels.length) throw new Error('No channels found');
 
   for (const email of emails) {

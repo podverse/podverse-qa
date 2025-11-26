@@ -14,8 +14,8 @@ export default async function () {
     try {
       const createdAccount = await accountService.getByEmail(acc.email);
       if (!createdAccount) throw new Error('Account not found after creation');
-
-      const playlistsResponse = await playlistService.getManyPrivate(createdAccount.id);
+      const medium_id = null;
+      const playlistsResponse = await playlistService.getManyPrivate(createdAccount.id, medium_id);
       const playlists = playlistsResponse[0];
 
       for (const playlist of playlists) {
