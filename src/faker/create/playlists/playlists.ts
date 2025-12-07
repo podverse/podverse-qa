@@ -7,8 +7,7 @@ export default async function () {
   const playlistService = new PlaylistService();
 
   const mediums = [
-    MediumEnum.Podcast,
-    MediumEnum.Video,
+    MediumEnum.AV,
     MediumEnum.Music
   ];
 
