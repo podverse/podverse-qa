@@ -9,7 +9,7 @@ export default async function createQuickFeedsChannelsItems() {
   for (const podcastId of podcastIds) {
     try {
       const { feed } = await podcastIndexService.podcastGetById(podcastId);
-      await parseRSSFeedAndSaveToDatabase(feed.url, podcastId);
+      await parseRSSFeedAndSaveToDatabase(feed.url, podcastId, { forceParse: true });
     } catch (error) {
       console.error(`Error processing podcast ${podcastId}:`, error);
     }

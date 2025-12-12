@@ -7,7 +7,7 @@ export default async function createFeedsChannelsItems() {
 
   for (const feed of feeds) {
     try {
-      await parseRSSFeedAndSaveToDatabase(feed.url, feed.id);
+      await parseRSSFeedAndSaveToDatabase(feed.url, feed.id, { forceParse: true });
     } catch (error) {
       console.error(`Error processing feed ${feed.id}:`, error);
     }
@@ -19,7 +19,7 @@ export default async function createFeedsChannelsItems() {
     const feeds = await podcastIndexService.podcastsByMedium(medium, 25);
     for (const feed of feeds) {
       try {
-        await parseRSSFeedAndSaveToDatabase(feed.url, feed.id);
+        await parseRSSFeedAndSaveToDatabase(feed.url, feed.id, { forceParse: true });
       } catch (error) {
         console.error(`Error processing feed ${feed.id}:`, error);
       }
