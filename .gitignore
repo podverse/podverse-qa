@@ -2,8 +2,6 @@
 **/.env*
 !**/.env.example
 
-config/firebase/firebase-key.json
-
 .DS_STORE
 
 # Logs
