@@ -10,7 +10,7 @@ export default async function () {
   for (const acc of FAKER.ACCOUNTS) {
     try {
       const qaVerified = true;
-      await accountService.create(acc, qaVerified);
+      await accountService.create({ ...acc, locale: 'en-US' }, qaVerified);
 
       const createdAccount = await accountService.getByEmail(acc.email);
       if (!createdAccount) throw new Error('Account not found after creation');
